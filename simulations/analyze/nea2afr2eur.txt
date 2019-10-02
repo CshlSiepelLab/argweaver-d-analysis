@@ -1,0 +1,13 @@
+alt1
+alt2
+vin1
+vin2
+eur1
+eur2
+eur3
+eur4
+afr1
+afr2
+afr3
+afr4
+chimp

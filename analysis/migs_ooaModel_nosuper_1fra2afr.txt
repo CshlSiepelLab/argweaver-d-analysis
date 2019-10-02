@@ -1,0 +1,12 @@
+nToH.Khomani_San_1F_1 0 1 1724 Khomani_San_1F_1
+nToH.Khomani_San_1F_2 0 1 1724 Khomani_San_1F_2
+dToH.Khomani_San_1F_1 0 2 1724 Khomani_San_1F_1
+dToH.Khomani_San_1F_2 0 2 1724 Khomani_San_1F_2
+nToH.Basque_2F_1 0 1 1724 Basque_2F_1
+nToH.Basque_2F_2 0 1 1724 Basque_2F_2
+dToH.Basque_2F_1 0 2 1724 Basque_2F_1
+dToH.Basque_2F_2 0 2 1724 Basque_2F_2
+nToH.Mandenka_2F_1 0 1 1724 Mandenka_2F_1
+nToH.Mandenka_2F_2 0 1 1724 Mandenka_2F_2
+dToH.Mandenka_2F_1 0 2 1724 Mandenka_2F_1
+dToH.Mandenka_2F_2 0 2 1724 Mandenka_2F_2

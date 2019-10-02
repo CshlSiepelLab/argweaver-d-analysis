@@ -1,0 +1,4 @@
+chimp filters/panTro4_filter.bed.gz
+Altai filters/Altai_mask.bed.gz
+Denisova filters/Denisova_mask.bed.gz
+Vindija filters/Vindija_mask.bed.gz

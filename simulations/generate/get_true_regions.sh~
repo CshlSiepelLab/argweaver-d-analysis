@@ -1,0 +1,170 @@
+#/bin/bash
+set -e
+
+run=$1
+if [[ -z $run ]]; then
+    run=run39b
+fi
+
+startrep=$2
+endrep=$3
+if [[ -z $startrep ]]; then
+    startrep=1
+    endrep=100
+fi
+
+if [[ $run == "run39d" || $run == "run37d" || $run == "run39e" || $run == "run37e" || $run == "run42e" || $run == "run37e_X" || $run == "run39e_X" || $run == "run44e"  || $run == "run45e" || $run == "run46e" || $run == "run47e" || $run == "run48e" || $run == "run49e" ]]; then
+    sDiv=1e6
+elif [[ $run == "run41d" || $run == "run40d" || $run == "run41e" || $run == "run40e" || $run == "run43e"  || $run == "run40e_X" || $run == "run41e_X" ]]; then
+    sDiv=1.5e6
+else
+    echo "Need to set sDiv for $run"
+fi
+
+echo "$run"
+
+
+## get africans and number of africans
+afrs=`zcat $run/$startrep/sim.sites.gz | grep NAMES |
+  awk '{for (i=2;i<=NF; i++) {
+        if ($i ~ /^afr/) {print $i}}}'`
+
+nafr=`( for afr in $afrs; do echo $afr; done ) | wc -l`
+
+
+mkdir -p $run/true_regions
+sup=sup1
+arc=arc1
+haveSuper=`zcat $run/$startrep/sim.sites.gz | grep NAMES | grep -o $sup`
+if [[ -z $haveSuper ]]; then
+    echo "Do not have superArchaic sample"
+    exit 0
+fi
+
+haveArc=`zcat $run/$startrep/sim.sites.gz | grep NAMES | grep -o $arc`
+if [[ -z $haveArc ]]; then
+    echo "Do not have archaic sample"
+    exit 0
+fi
+
+
+for i in `seq $startrep $endrep`; do
+    d=$run/$i
+    echo $d
+    if [[ ! -e $d/trueArg2.bed.gz ]]; then
+        zcat $d/trueArg.bed.gz | awk '$2 != $3' | bgzip > $d/trueArg2.bed.gz
+    fi
+    for afr in $afrs; do
+        arg-summarize --node-dist "${afr},${sup}" -a $d/trueArg.bed.gz |
+            grep -v "^#" |
+            awk -v OFS="\t" -v sdiv=$sDiv '{val=$NF/2*29}; val < sdiv {print $1,$2,$3}' |
+            bedops -m - > $d/sToA.$afr.bed
+    done
+    bedops -m $d/sToA.afr1.bed $d/sToA.afr2.bed $d/sToA.afr3.bed $d/sToA.afr4.bed > $d/sToA.2afr.bed
+    if [[ -e $d/sToA.afr5.bed ]]; then
+    bedops -m $d/sToA.2afr.bed $d/sToA.afr5.bed $d/sToA.afr6.bed $d/sToA.afr7.bed \
+           $d/sToA.afr8.bed > $d/sToA.4afr.bed
+    fi
+    bedops -m $d/sToA.*.bed > $d/sToA.8afr.bed
+
+    arg-summarize --node-dist "den1,sup1;den2,sup1" -a $d/trueArg2.bed.gz |
+        grep -v "^#" |
+        awk -v OFS="\t" -v sdiv=$sDiv '{val1=($(NF-1)*29+72000)/2; val2=($NF*29+72000)/2};
+                         val1 < sdiv || val2 < sdiv {print $1,$2,$3}' |
+        bedops -m - > $d/sToD.bed
+
+
+    for nea in alt1 alt2 vin1 vin2; do
+        if [[ $nea == "alt1" || $nea == "alt2" ]]; then
+            age=115000
+        else
+            age=52000
+        fi
+        arg-summarize --node-dist "$nea,arc1" -a $d/trueArg2.bed.gz |
+            grep -v "^#" |
+            awk -v OFS="\t" -v age=$age '{val=($NF*29+age)/2};
+                val < 500000 {print $1,$2,$3}' |
+            bedops -m - > $d/aToN.$nea.bed
+    done
+    
+    arg-summarize --node-dist "alt1,arc1;alt2,arc1" -a $d/trueArg2.bed.gz |
+        grep -v "^#" |
+        awk -v OFS="\t" '{val1=($(NF-1)*29+115000)/2; val2=($NF*29+115000)/2};
+            val1 < 500000 || val2 < 500000 {print $1,$2,$3}' |
+        bedops -m - > $d/aToN.alt.bed
+
+    arg-summarize --node-dist "vin1,arc1;vin2,arc1" -a $d/trueArg2.bed.gz |
+        grep -v "^#" |
+        awk -v OFS="\t" '{val1=($(NF-1)*29+52000)/2; val2=($NF*29+52000)/2};
+            val1 < 500000 || val2 < 500000 {print $1,$2,$3}' |
+        bedops -m - > $d/aToN.vin.bed
+    bedops -m $d/aToN.alt.bed $d/aToN.vin.bed > $d/aToN.bed
+done
+
+
+
+## finally, make files $d/true_regions/<mig>.merged.bed or
+## $d/true_regions/<mig>.<inds>.merged.bed
+
+mkdir -p $run/true_regions
+find $run -name sToD.bed | xargs bedops -m > $run/true_regions/sToD.tmp.bed
+find $run -name aToN.bed | xargs bedops -m > $run/true_regions/aToN.tmp.bed
+find $run -name sToA.8afr.bed | xargs bedops -m > $run/true_regions/sToA.tmp.bed
+for nea in alt1 alt2 vin1 vin2; do
+    find $run -name aToN.$nea.bed | xargs bedops -m > $run/true_regions/aToN.$nea.bed
+done
+
+cd $run/true_regions
+bedops -d sToD.tmp.bed aToN.tmp.bed sToA.tmp.bed | bedops -m - > sToD.merged.bed
+bedops -d aToN.tmp.bed sToD.tmp.bed sToA.tmp.bed | bedops -m - > aToN.merged.bed
+bedops -d sToA.tmp.bed aToN.tmp.bed sToD.tmp.bed | bedops -m - > sToA.merged.bed
+bedops -u sToA.tmp.bed aToN.tmp.bed sToD.tmp.bed |
+    bedops -p - |
+    bedmap --echo --echo-map --delim "\t" --multidelim "\t" - sToA.tmp.bed |
+    bedmap --echo --echo-map --delim "\t" --multidelim "\t" - sToD.tmp.bed |
+    bedmap --echo --echo-map --delim "\t" --multidelim "\t" - aToN.tmp.bed |
+    awk -v OFS="\t" 'NF > 6 {print $1,$2,$3}' |
+    bedops -m - > multiIntrogress.merged.bed
+
+
+
+find ../../$run -name aToN.alt.bed | xargs bedops -m - |
+    bedops -d - multiIntrogress.merged.bed > aToN.alt.bed
+find ../../$run -name aToN.vin.bed | xargs bedops -m - |
+    bedops -d - multiIntrogress.merged.bed > aToN.vin.bed
+
+rm -f *.tmp.bed
+cd ../..
+find $run -name sToA.2afr.bed | xargs bedops -m - |
+    bedops -i - $run/true_regions/sToA.merged.bed |
+    bedops -m - > $run/true_regions/sToA.2afr.merged.bed
+find $run -name sToA.4afr.bed | xargs bedops -m - |
+    bedops -i - $run/true_regions/sToA.merged.bed |
+    bedops -m - > $run/true_regions/sToA.4afr.merged.bed
+
+## This does not remove multiIntrogress but for purposes of plotting lengths it is OK
+find $run -name sToA.afr[12].bed | grep -v true_regions | xargs bedops -m > $run/true_regions/sToA.afr1.bed
+find $run -name sToA.afr[34].bed | grep -v true_regions | xargs bedops -m > $run/true_regions/sToA.afr2.bed
+files=`find $run -name sToA.afr[56].bed | grep -v true_regions`
+if [[ -n $files ]]; then
+    bedops -m $files > $run/true_regions/sToA.afr3.bed
+fi
+files=`find $run -name sToA.afr[78].bed | grep -v true_regions`
+if [[ -n $files ]]; then
+    bedops -m $files > $run/true_regions/sToA.afr4.bed
+fi
+hap=5
+for i in `seq 9 2 15`; do
+    files="`find $run -name sToA.afr$i.bed | grep -v true_regions`"
+    if [[ -n $files ]]; then
+        j=$(($i+1))
+        files="$files `find $run -name sToA.afr$j.bed | grep -v true_regions`"
+        bedops -m $files > $run/true_regions/sToA.afr$hap.bed
+    else break; fi
+    hap=$(($hap+1))
+done
+
+cd $run/true_regions
+ln -s sToA.2afr.merged.bed sToA.2afr_vinOnly.merged.bed
+ln -s aToN.vin.bed aToN.2afr_vinOnly.merged.bed
+cd ../..

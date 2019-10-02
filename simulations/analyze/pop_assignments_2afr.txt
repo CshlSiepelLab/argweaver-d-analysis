@@ -1,0 +1,11 @@
+chimp	4
+afr1	0
+afr2	0
+afr3	0
+afr4	0
+vin1	1
+vin2	1
+alt1	1
+alt2	1
+den1	2
+den2	2

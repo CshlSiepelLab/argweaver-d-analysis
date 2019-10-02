@@ -1,0 +1,9 @@
+# time, popsize, pop
+## These numbers came from Kuhlwilm et al supplementary table S14
+0	23700	0
+0	3400	1
+0	2500	2
+0	10000	3
+0	10000	4
+14310	7100	1
+19827	18500	0

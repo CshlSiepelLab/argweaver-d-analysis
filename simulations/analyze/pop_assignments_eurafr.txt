@@ -1,0 +1,9 @@
+afr1	0
+afr2	0
+afr3	0
+afr4	0
+eur1	1
+eur2	1
+eur3	1
+eur4	1
+chimp	4 

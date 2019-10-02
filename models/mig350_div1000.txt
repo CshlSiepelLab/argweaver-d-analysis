@@ -1,0 +1,23 @@
+npop 5
+
+## nea/den div at 415kya
+div 14310 2 1
+
+## arc/afr div at 575kya
+div 19827 1 0
+
+## sup/hom div at 1.0mya
+div 34483 3 0
+
+## hom/chimp div at 11Mya - divergences will be forced to 13.5Mya due to
+#rounding
+div 379310 4 0
+
+## Afr-Nea @ 350kya
+mig 12069 1 0 0.01
+mig 12069 2 0 0.01
+
+## Sup mig @ 350kya
+mig 12069 0 3 0.01
+mig 12069 1 3 0.01
+mig 12069 2 3 0.01

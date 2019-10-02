@@ -1,0 +1,7 @@
+VCF/Altai.vcf.gz
+VCF/Denisova.vcf.gz
+VCF/LP6005677-DNA_D03.annotated.nh.vcf.gz
+VCF/LP6005441-DNA_D02.annotated.nh.vcf.gz
+VCF/panTro4.vcf.gz
+VCF/Vindija.vcf.gz
+VCF/LP6005441-DNA_F07.annotated.nh.vcf.gz

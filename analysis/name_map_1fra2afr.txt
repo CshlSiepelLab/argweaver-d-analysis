@@ -1,0 +1,6 @@
+panTro4	chimp
+Vindija33.19	Vindija
+AltaiNeandertal	Altai
+LP6005677-DNA_D03	Khomani_San_1F
+LP6005441-DNA_F07	Mandenka_2F
+LP6005441-DNA_D02	Basque_2F

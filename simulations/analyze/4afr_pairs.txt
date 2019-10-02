@@ -1,0 +1,7 @@
+vin1 vin2
+alt1 alt2
+den1 den2
+afr1 afr2
+afr3 afr4
+afr5 afr6
+afr7 afr8

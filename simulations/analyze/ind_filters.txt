@@ -1,0 +1,7 @@
+alt1	filters/Altai_mask.bed.gz
+alt2	filters/Altai_mask.bed.gz
+vin1	filters/Vindija_mask.bed.gz
+vin2	filters/Vindija_mask.bed.gz
+den1	filters/Denisova_mask.bed.gz
+den2	filters/Denisova_mask.bed.gz
+chimp	filters/panTro4_filter.bed.gz

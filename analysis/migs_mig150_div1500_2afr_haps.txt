@@ -1,0 +1,16 @@
+aToN.alt_1 1 0 5172 Altai_1 
+aToN.alt_2 1 0 5172 Altai_2
+aToN.vin_1 1 0 5172 Vindija_1
+aToN.vin_2 1 0 5172 Vindija_2
+aToD.den_1 2 0 5172 Denisova_1
+aToD.den_2 2 0 5172 Denisova_2
+sToA.afr1_1 0 3 5172 Khomani_San_1F_1
+sToA.afr1_2 0 3 5172 Khomani_San_1F_2
+sToA.afr2_1 0 3 5172 Mandenka_2F_1
+sToA.afr2_2 0 3 5172 Mandenka_2F_2
+sToN.alt_1 1 3 5172 Altai_1
+sToN.alt_2 1 3 5172 Altai_2
+sToN.vin_1 1 3 5172 Vindija_1
+sToN.vin_2 1 3 5172 Vindija_2
+sToD.den_1 2 3 5172 Denisova_1
+sToD.den_2 2 3 5172 Denisova_2

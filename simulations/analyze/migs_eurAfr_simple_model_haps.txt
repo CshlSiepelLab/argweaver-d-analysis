@@ -1,0 +1,4 @@
+nToE.eur1 1 2 1724 eur1
+nToE.eur2 1 2 1724 eur2
+nToE.eur3 1 2 1724 eur3
+nToE.eur4 1 2 1724 eur4

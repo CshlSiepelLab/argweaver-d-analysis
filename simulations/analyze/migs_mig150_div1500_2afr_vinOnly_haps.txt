@@ -1,0 +1,12 @@
+hToN.vin_1 1 0 5172 vin1
+hToN.vin_2 1 0 5172 vin2
+hToD.den_1 2 0 5172 den1
+hToD.den_2 2 0 5172 den2
+sToH.afr1_1 0 3 5172 afr1
+sToH.afr1_2 0 3 5172 afr2
+sToH.afr2_1 0 3 5172 afr3
+sToH.afr2_2 0 3 5172 afr4
+sToN.vin_1 1 3 5172 vin1
+sToN.vin_2 1 3 5172 vin2
+sToD.den_1 2 3 5172 den1
+sToD.den_2 2 3 5172 den2
