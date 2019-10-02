@@ -27,38 +27,45 @@ The scripts assume the installation of several software/tools:
 
 ## Important files/directories:
 
-models/: Contains all the demographic models (divergence times/migration paths)
+<dl>
+   <dt>models/</dt>
+  <dd>Contains all the demographic models (divergence times/migration paths)
   used in various ARGweaver-D runs. These models are passed to the
-  --pop-tree-file argument of ARGweaver-D.
+     --pop-tree-file argument of ARGweaver-D.</dd>
 
-simulations/generate/: Contains all scripts for generating simulated data
-  sets in the paper. More information given in the README.txt file therein.
 
-simulations/analyze/: Contains all scripts for running ARGweaver on
-  the simulated data sets, and plotting results.
-  runArgweaverRecent.sh runs ARGweaver on a single simulated data set, with a
+<dt>simulations/generate/</dt>
+  <dd>Contains all scripts for generating simulated data
+  sets in the paper. More information given in the README.txt file therein.</dd>
+
+
+<dt>simulations/analyze/</dt> 
+<dd>Contains all scripts for running ARGweaver on
+  the simulated data sets, and plotting results.</dd>
+<dd>  runArgweaverRecent.sh runs ARGweaver on a single simulated data set, with a
      single set of parameters, with some defaults used to look for recent
-     introgression into non-African humans from Neanderthal
-  runArgweaverDeep.sh runs ARGweaver on a single simulated data set, with
-     some defaults used to look for older introgression events
-  runCRF.sh runs the CRF method on a single simulated data set. Software
-     was supplied by Sriram Sankararaman.
-  The script ARG_vs_CRF.R produces Figure 2 of the main paper.
-  The script plotTPRates.R produces Figure 5.
+     introgression into non-African humans from Neanderthal</dd>
+  <dd>runArgweaverDeep.sh runs ARGweaver on a single simulated data set, with
+     some defaults used to look for older introgression events</dd>
+  <dd>runCRF.sh runs the CRF method on a single simulated data set. Software
+     was supplied by Sriram Sankararaman.</dd>
+  <dd>The script ARG_vs_CRF.R produces Figure 2 of the main paper.</dd>
+  <dd>The script plotTPRates.R produces Figure 5.</dd>
 
-analysis/: Contains all scripts for running ARGweaver on data set
+<dt>analysis/</dt>
+<dd>Contains all scripts for running ARGweaver on data set
   consisting of some SGDP individuals, Vindija/Altai Neanderthals,
-       Denisovan, and chimpanzee outgroup
-  runOOA.sh runs ARGweaver on a single chromosomal segment looking for recent
-     Nea or Den introgression into non-African humans
-  runDeep.sh runs ARGweaver on a single segment looking for deeper (older)
-     introgression events
-  combineResults.sh combines all the results across many segments (using the same
-      model) into a single set of predictions
-  The script ooa_coverage.R produces Figure 4 of the main paper.
-  The script deep_coverage.R produces Figure 6.
+       Denisovan, and chimpanzee outgroup</dd>
+  <dd>runOOA.sh runs ARGweaver on a single chromosomal segment looking for recent
+     Nea or Den introgression into non-African humans</dd>
+  <dd>runDeep.sh runs ARGweaver on a single segment looking for deeper (older)
+     introgression events</dd>
+  <dd>combineResults.sh combines all the results across many segments (using the same
+      model) into a single set of predictions</dd>
+ <dd>The script ooa_coverage.R produces Figure 4 of the main paper.</dd>
+  <dd>The script deep_coverage.R produces Figure 6.</dd>
 
-scripts/: Contains some miscellaneous scripts, including functions.R which
-  is required by other R code in this repository
-
-
+<dt>scripts/</dt>
+<dd>Contains some miscellaneous scripts, including functions.R which
+  is required by other R code in this repository</dd>
+</dl>
